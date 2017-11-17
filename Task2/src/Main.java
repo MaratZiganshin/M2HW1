@@ -42,16 +42,33 @@ public class Main {
     public static long[] merge(long[] first, long[] second){
         int indexFirst = 0;
         int indexSecond = 0;
+        int indexResult = 0;
         long[] result = new long[first.length + second.length];
-        for (int i = 0; i < result.length; i++){
-            if (indexSecond == second.length || first[indexFirst] < second[indexSecond]){
-                result[i] = first[indexFirst];
+
+        while (indexFirst < first.length && indexSecond < second.length){
+            if (first[indexFirst] < second[indexSecond]){
+                result[indexResult] = first[indexFirst];
                 indexFirst++;
             }
             else {
-                result[i] = second[indexSecond];
+                result[indexResult] = second[indexSecond];
                 indexSecond++;
             }
+            indexResult++;
+        }
+
+        while (indexFirst < first.length)
+        {
+            result[indexResult] = first[indexFirst];
+            indexFirst++;
+            indexResult++;
+        }
+
+        while (indexSecond < second.length)
+        {
+            result[indexResult] = second[indexSecond];
+            indexSecond++;
+            indexResult++;
         }
         return result;
     }
@@ -64,14 +81,53 @@ public class Main {
         int n2 = input.nextInt();
         long[] first = generateNumbers(n1);
         long[] second = generateNumbers(n2);
+
+        long[] warmArray1;
+        long[] warmArray2;
+
+        for (int i = 0; i < 100; i++) {
+            warmArray1 = generateNumbers(100000);
+            sort(warmArray1, 0, warmArray1.length - 1);
+            warmArray2 = generateNumbers(100000);
+            sort(warmArray2, 0, warmArray2.length - 1);
+        }
+
+        long currentTime = System.nanoTime();
         sort(first, 0, first.length - 1);
+        System.out.println("First array sort: " + (System.nanoTime() - currentTime) + "ns");
+
+        currentTime = System.nanoTime();
         sort(second, 0, second.length - 1);
+        System.out.println("Second array sort: " + (System.nanoTime() - currentTime) + "ns");
+
+        for (int i = 0; i < 100; i++) {
+            long[] warmArray3 = merge(first, second);
+        }
+
+        currentTime = System.nanoTime();
         long[] result = merge(first, second);
-        for (int i = 0; i < result.length - 1; i++)
-            if (result[i] > result[i + 1])
+        System.out.println("Arrays merge: " + (System.nanoTime() - currentTime) + "ns");
+
+        for (int i = 0; i < first.length - 1 ; i++){
+            if (first[i] > first[i+1])
             {
                 System.out.println("error");
                 break;
             }
+        }
+        for (int i = 0; i < second.length - 1 ; i++){
+            if (second[i] > second[i+1])
+            {
+                System.out.println("error");
+                break;
+            }
+        }
+        for (int i = 0; i < result.length - 1 ; i++){
+            if (result[i] > result[i+1])
+            {
+                System.out.println("error");
+                break;
+            }
+        }
     }
 }

@@ -1,0 +1,4 @@
+﻿  Source.cpp
+c:\github\m2hw1\task2c++\arraysmerging\arraysmerging\source.cpp(86): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  ArraysMerging.vcxproj -> C:\GitHub\M2HW1\Task2C++\ArraysMerging\Debug\ArraysMerging.exe
+  ArraysMerging.vcxproj -> C:\GitHub\M2HW1\Task2C++\ArraysMerging\Debug\ArraysMerging.pdb (Partial PDB)
