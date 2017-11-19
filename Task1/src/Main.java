@@ -85,7 +85,7 @@ public class Main {
             maxValue(array);
             arrayTime += System.nanoTime() - currentTime;
         }
-        System.out.println("Array: " + arrayTime / M);
+        System.out.println("array: " + arrayTime / M);
 
         for (int i = 0; i < M; i++) {
             ArrayList<Long> etalon = generateNumbers(N);
